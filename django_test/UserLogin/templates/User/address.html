@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+  <head>
+    <title>Driver Reward System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <style>
+	body{
+            margin:0;
+        }
+	header{
+            padding:50px;
+            background: #6DB3E7;
+            font-family: Roboto;
+            font-size: 36px;
+            color: #FFFFFF;
+        }
+	.centerForm{
+            font-family: Roboto;
+            width:500px;
+            padding:20px;
+            margin:10px auto;
+            background:#edf7f9;
+
+        }
+
+	.centerForm input{
+            padding:10px;
+            width:100%;
+            box-sizing: border-box;
+        }
+	.centerForm label{
+            display: block;
+            margin:10px 0 10px 0;
+        }
+    </style>
+  </head>
+  <body>
+    <header>Driver Reward System</header>
+    <div class="centerForm">
+        <h2>New Address</h2>
+        <form method = "post">
+        {% csrf_token %}
+        <label>Email</label>
+        <input type="text" name="address"/><br/>
+        <input type="submit" value="Address"/>
+    </div>
+  </body>
+</html>

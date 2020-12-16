@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+  <head>
+    <title>Driver Reward System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <style>
+	body{
+            margin:0;
+        }
+	header{
+            padding:50px;
+            background: #6DB3E7;
+            font-family: Roboto;
+            font-size: 36px;
+            color: #FFFFFF;
+        }
+	.centerForm{
+            font-family: Roboto;
+            width:500px;
+            padding:20px;
+            margin:10px auto;
+            background:#edf7f9;
+
+        }
+
+	.centerForm input{
+            padding:10px;
+            width:100%;
+            box-sizing: border-box;
+        }
+	.centerForm label{
+            display: block;
+            margin:10px 0 10px 0;
+        }
+    nav{
+            float:right;
+            padding:10px;
+            font-size: 20px;
+            color:white !important;
+    }
+    </style>
+  </head>
+  <body>
+    <header>Cart
+        <nav>
+            <a href="/home">Home</a>
+        </nav>
+    </header>
+        <p>{{cart.product.name}}</p>
+        <form method="post" action="/catalog/{{cart.product.id}}/removeFromCart/" class="form-group">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                <button name="delete" type="submit" class="btn btn-success">Remove</button>
+                </div>
+            </div>
+        </form>
+        <form method="post" action="/catalog/{{cart.product.id}}/removeFromCart/" class="form-group">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                <button name="delete" type="submit" class="btn btn-success">Buy</button>
+                </div>
+            </div>
+        </form>
+  </body>
+</html>

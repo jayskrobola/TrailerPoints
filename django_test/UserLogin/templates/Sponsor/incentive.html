@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+  <head> 
+    <title>Driver Reward System</title> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+    
+    <style> 
+  body{ 
+          margin:0;
+        }
+	header{ 
+               padding:50px; 
+               background: #6DB3E7; 
+               font-family: Roboto; 
+               font-size: 36px; 
+               color: #FFFFFF;
+        }
+	.centerForm{ 
+                  font-family: Roboto; 
+                  width:500px; 
+                  padding:20px; 
+                  margin:10px auto; 
+                  background:#edf7f9;
+        }
+	.centerForm input{ 
+                  padding:10px; 
+                  width:100%; 
+                  box-sizing: border-box;
+        }
+	.centerForm label{ 
+                  display: block; 
+                  margin:10px 0 10px 0;
+        }
+    </style> 
+   </head> 
+   <body> 
+   <header>Driver Reward System</header> 
+   <div class="centerForm"> 
+       <h2>Incentives for gaining points</h2> 
+       <form method = "post"> 
+       {% csrf_token %} 
+       <label>Rule 1: Drivers must have good standing</label> 
+       <label>Rule 2: Drivers must have a total of 30 hours completed per week</label> 
+       <label>Rule 3: If the driver has no tickets or warnings then they recieve points.</label>
+       <a href="/home">Home</a> 
+    </div>
+  </body> 
+</html>

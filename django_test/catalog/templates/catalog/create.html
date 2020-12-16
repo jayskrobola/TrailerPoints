@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+  <head>
+    <title>Driver Reward System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <style>
+	body{
+            margin:0;
+        }
+	header{
+            padding:50px;
+            background: #6DB3E7;
+            font-family: Roboto;
+            font-size: 36px;
+            color: #FFFFFF;
+        }
+	.centerForm{
+            font-family: Roboto;
+            width:500px;
+            padding:20px;
+            margin:10px auto;
+            background:#edf7f9;
+
+        }
+
+	.centerForm input{
+            padding:10px;
+            width:100%;
+            box-sizing: border-box;
+        }
+	.centerForm label{
+            display: block;
+            margin:10px 0 10px 0;
+        }
+    </style>
+  </head>
+  <body>
+    <header>Driver Reward System</header>
+    <nav>
+        <a href="/home">Home</a>
+    </nav>
+    <br>
+    <h1>Create a New Catalog</h1>
+    <form method="post" action="/catalog/create/" class="form-group">
+		{% csrf_token %}
+		<div class="input-group mb-3">
+            {{form.name}}
+	  		<div class="input-group-prepend">
+	  		<button name="save" type="submit" class="btn btn-success">Create</button>
+	  		</div>
+		</div>
+	</form>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+  <head>
+    <title>Driver Reward System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>body{
+        margin:0;
+    }
+    
+    header{
+        padding:50px;
+        background: #6DB3E7;
+        font-family: Roboto;
+        font-size: 36px;
+        color: #FFFFFF;
+    }
+    
+    .centerForm{
+        font-family: Roboto;
+        width:500px;
+        padding:20px;
+        margin:10px auto;
+        background:#edf7f9;
+    }
+    @media(max-width: 500px){
+        .centerForm{
+            width:80%;
+        }
+    }
+    
+    .centerForm input{
+        padding:10px;
+        width:100%;
+        box-sizing: border-box;
+    }
+    .centerForm label{
+        display: block;
+        margin:10px 0 10px 0;
+    }
+    
+    
+    
+    .centerForm input{
+        padding:10px;
+        width:100%;
+        box-sizing: border-box;
+    }
+    .centerForm label{
+        display: block;
+        margin:10px 0 10px 0;
+    }
+    
+    .row{
+        display:flex;
+        flex-wrap: wrap;
+    }
+    
+    .col{
+        flex:1;
+    }
+    .col3{
+        flex:3;
+        margin:25px;
+    }
+    .itemWrapper{
+        display:flex;
+        margin:10px;
+    }
+    
+    .item{
+        height:100px;
+        flex:1;
+        margin:10px;
+        padding:10px;
+    }
+    .img{
+        height:100px;
+        width:100%;
+        background:#ECECEC;
+    }
+    .points{
+        margin:20px 0 0 0 ;   
+        padding:10px;
+        height:100px;
+        float:right;
+        background:#ECECEC;
+    
+    }
+    @media(max-width: 500px){
+        .points{
+            flex:3;
+        }
+    }
+    nav{
+        float:right;
+        padding:10px;
+        font-size: 20px;
+        color:white !important;
+    }
+    .sidenav{
+        height: 50%;
+        width: 300px;
+        position: fixed;
+        z-index: 1;
+        top: header;
+        right: 50px;
+        background: #6DB3E7;
+        color: #FFFFFF;
+        font-family: Roboto;
+        overflow-x: hidden;
+        padding-top: 20px;
+        text-align:center;
+    }
+    .sidenavdrivers{
+        color: #FFFFFF;
+        text-align: left;
+        top: header;
+    }
+    </style>
+  </head>  
+  <body>
+    <header>Sponsor Profile
+    <nav>
+        <a href="/home">Home</a>
+        <a href="/addpoint">Add Driver Points</a>
+        <a href="/catalog/view/">Edit Catalogs</a>
+	<a href="/updatePassword">Update Password</a>
+        <a href="/email">Change Email</a>
+        <a href="/incentive">Driver Incentives</a>
+        <a href="/updateDollarVal">Update Point Value</a>
+        <a href="/paymentmethod">Change Payment Method</a>
+        <a href="/fakeDriver">Fake Driver</a>
+        <a href="/logout">Logout</a>
+    </nav>
+    </header>
+    <div class="centerForm">
+    <form method="post" action="/removeDriver">
+     {% csrf_token %}
+     <select name="removeDriver">
+     {% for point in points %}   
+        <option class="{{test}}">{{point.drivers.driver_name}} {{point.driver_points}}</option>
+     {%endfor%}
+     </select>
+     <input type="submit" value="Fire"/>
+     </form>       
+    </div>
+    <div class ="sidenav">
+     <header> Add Driver
+     </header>
+     <div class ="sidenavdrivers">
+     <body>
+     <form method="post" action="/addDriver">
+         {% csrf_token %}
+     <select name="addDriver"
+     {% for drivers in nonsponsored %}
+         <option class="{{nonsponsored}}">{{drivers.driver_name}}</option>
+     {%endfor%}
+     </select>
+     <input type="submit" value="Employ"/>
+     </form>
+     </body>
+     </div>
+    </div>
+  </body>
+</html>
+

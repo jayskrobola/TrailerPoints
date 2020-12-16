@@ -1,0 +1,6 @@
+setuptools
+wheel
+django
+mysql
+mysqlclient
+virtualenv

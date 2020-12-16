@@ -1,0 +1,124 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, HttpResponse
+from django.contrib.auth import authenticate, login
+from django.template import RequestContext
+from django.contrib.auth.models import User
+from .models import Driver,Dbuser,Sponsor,Employs
+from ebaysdk.shopping import Connection as shopping
+from bs4 import BeautifulSoup
+
+# Create your views here.
+def home(request):
+    return HttpResponseRedirect('/login')
+
+#def UserLogin(request):
+#    return render(request,'User/login.html')
+
+def profile(request):
+    username=request.GET.get("userid", "")
+    driver=Driver.objects.get(user_id=3)
+    return render(request,'User/profile.html',{'driver':driver})
+
+def sponsorProfile(request):
+    if(Employs.objects.exists()):
+        sponsor = Employs.objects.get(sponsors=1)
+	for drivers in sponsor:
+            dofs = 
+        return render(request,'Sponsor/sponsorProfile.html',{'test':dofs})
+
+def addpoints(request):
+    if(Driver.objects.exists()):
+        names =[driver['driver_name'] for driver in list(Driver.objects.all().values())]
+        return render(request,'User/addpoints.html',{'names':names})
+
+def updatePassword(request):
+    names =[driver['username'] for driver in list(User.objects.all().values())]
+    return render(request,'User/updatePassword.html',{'names':names})
+
+def PostUpdatePassword(request):
+    username=request.POST.get("username", "")
+    password=request.POST.get("password", "")
+    user = User.objects.get(username=username)
+    user.set_password(password)
+    user.save()
+    return HttpResponse("updated password")
+
+def PostPoint(request):
+    points=request.POST.get("points", "")
+    username=request.POST.get("username", "")
+    Driver.objects.filter(driver_name=username).update(driver_points=points)
+    return HttpResponse("updated points")
+
+
+def updateUsername(request):
+    names =[driver['username'] for driver in list(User.objects.all().values())]
+    return render(request,'User/updateUsername.html',{'names':names})
+
+def PostUpdateUsername(request):
+    username=request.POST.get("username", "")
+    nusername=request.POST.get("newusername", "")
+    user = User.objects.get(username=username)
+    user.username=nusername
+    user.save()
+    return HttpResponse("updated username")
+
+def catalog(request):
+    ids = ['383421948017', '391484936485', '124122776251', '371761634855']
+    catItems = []
+
+    for id in ids:
+        catItem = {}
+
+        api = shopping(appid='JaySkrob-TrailerP-PRD-0e65090ee-840b0c33', config_file=None)
+        api_request = {'ItemID':id}
+
+        response = api.execute('GetSingleItem', api_request)
+        soup = BeautifulSoup(response.content, 'lxml')
+
+        #print(soup)
+
+        #totalentries = int(soup.find('totalentries').text)
+        item = soup.find('item')
+
+        #print(item)
+
+        catItem['itemid'] = item.itemid.string
+        catItem['title'] = item.title.string.strip()
+        catItem['price'] = item.convertedcurrentprice.string
+        catItem['pic'] = item.pictureurl.string
+        catItems.append(catItem)
+    return render(request,'User/catalog.html',{'items':catItems})
+
+def register(request):
+    if request.method=="POST":
+        username=request.POST['username']
+        password=request.POST['password']
+        u =User.objects.create_user(username=username,password=password)
+        u.save()
+        return HttpResponse("registration complete <a href='/login/'>login page </a> to start using your website")
+    return render(request,"registration/register.html",{})
+
+def logout(request):
+    auth.logout(request)
+    return render(request,"registration/login.html")
+
+
+def updateName(request):
+    if request.method=="POST":
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
+        User = request.user
+        User.first_name = firstname
+        User.last_name = lastname
+        User.save()
+    return render(request,"User/updateName.html")
+
+def updateEmail(request):
+    if request.method=="POST":
+        email = request.POST['email']
+        User = request.user
+        User.email = email
+        User.save()
+    return render(request,"User/email.html")

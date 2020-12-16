@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+  <head>
+    <title>Driver Reward System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>body{
+        margin:0;
+    }
+    
+    header{
+        padding:50px;
+        background: #6DB3E7;
+        font-family: Roboto;
+        font-size: 36px;
+        color: #FFFFFF;
+    }
+    
+    .centerForm{
+        font-family: Roboto;
+        width:500px;
+        padding:20px;
+        margin:10px auto;
+        background:#edf7f9;
+    }
+    @media(max-width: 500px){
+        .centerForm{
+            width:80%;
+        }
+    }
+    
+    .centerForm input{
+        padding:10px;
+        width:100%;
+        box-sizing: border-box;
+    }
+    .centerForm label{
+        display: block;
+        margin:10px 0 10px 0;
+    }
+    
+    
+    
+    .centerForm input{
+        padding:10px;
+        width:100%;
+        box-sizing: border-box;
+    }
+    .centerForm label{
+        display: block;
+        margin:10px 0 10px 0;
+    }
+    
+    .row{
+        display:flex;
+        flex-wrap: wrap;
+    }
+    
+    .col{
+        flex:1;
+    }
+    .col3{
+        flex:3;
+        margin:25px;
+    }
+    .itemWrapper{
+        display:flex;
+        margin:10px;
+    }
+    
+    .item{
+        height:100px;
+        flex:1;
+        margin:10px;
+        padding:10px;
+    }
+    .img{
+        height:100px;
+        width:100%;
+        background:#ECECEC;
+    }
+    .points{
+        margin:20px 0 0 0 ;   
+        padding:10px;
+        height:100px;
+        float:right;
+        background:#ECECEC;
+    
+    }
+    @media(max-width: 500px){
+        .points{
+            flex:3;
+        }
+    }
+    nav{
+        float:right;
+        padding:10px;
+        font-size: 20px;
+        color:white !important;
+    }
+    select{
+        width: 500px;
+        max-width: 100%;
+        overflow: hidden;
+        white-space: normal;
+        text-overflow: ellipsis;
+        -webkit-appearance: none;
+}
+    </style>
+  </head>  
+  <body>
+    <header>User Profile
+    <nav>
+        <a href="/home">Home</a>
+        <a href="/catalog/viewDriver/">View Catalog</a>
+        <a href="/profile/updateName">Update Name</a>
+        <a href="/updatePassword">Update Password</a>
+	<a href="/email">Change Email</a>
+        <a href="incentive">Driver Incentive</a>
+        <a href="/logout">Logout</a>
+    </nav>
+    </header>
+    <div class="centerForm">
+    <form method="post" action="/removeSponsor">
+        {% csrf_token %}
+        {% for pointvalues in pointvalue %}
+            <b>Driver Name:{{driver.driver_name}}<br/>
+            <b>Employee Number:{{driver.employee_number}}<br/>
+            <b>Points:{{pointvalues.driver_points}}<br/>
+            <b>Address:{{driver.driver_address}}<br/>
+            <b>Point Value:{{pointvalues.sponsors.point_value}}<br/>
+            <b>Sponsors Name:{{pointvalues.sponsors.company_name}}<br/>
+            <br>
+            <input type="submit" value="Quit {{pointvalues.sponsors.company_name}}" name="removeSponsor"/>
+        {% endfor %}
+    </div>
+  </body>
+</html>

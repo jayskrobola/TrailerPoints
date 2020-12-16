@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+  <head>
+    <title>Driver Reward System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>body{
+        margin:0;
+    }
+    
+    header{
+        padding:50px;
+        background: #6DB3E7;
+        font-family: Roboto;
+        font-size: 36px;
+        color: #FFFFFF;
+    }
+    
+    .centerForm{
+        font-family: Roboto;
+        width:500px;
+        padding:20px;
+        margin:10px auto;
+        background:#edf7f9;
+    }
+    @media(max-width: 500px){
+        .centerForm{
+            width:80%;
+        }
+    }
+    
+    .centerForm input{
+        padding:10px;
+        width:100%;
+        box-sizing: border-box;
+    }
+    .centerForm label{
+        display: block;
+        margin:10px 0 10px 0;
+    }
+    
+    
+    
+    .centerForm input{
+        padding:10px;
+        width:100%;
+        box-sizing: border-box;
+    }
+    .centerForm label{
+        display: block;
+        margin:10px 0 10px 0;
+    }
+    
+    .row{
+        display:flex;
+        flex-wrap: wrap;
+    }
+    
+    .col{
+        flex:1;
+    }
+    .col3{
+        flex:3;
+        margin:25px;
+    }
+    .itemWrapper{
+        display:flex;
+        margin:10px;
+    }
+    
+    .item{
+        height:100px;
+        flex:1;
+        margin:10px;
+        padding:10px;
+    }
+    .img{
+        height:100px;
+        width:100%;
+    }
+    .points{
+        margin:20px 0 0 0 ;   
+        padding:10px;
+        height:100px;
+        float:right;
+        background:#ECECEC;
+    
+    }
+    @media(max-width: 500px){
+        .points{
+            flex:3;
+        }
+    }
+    nav{
+        float:right;
+        padding:10px;
+        font-size: 20px;
+        color:white !important;
+    }
+    </style>
+  </head>  
+  <body>
+    <header>Catalog</header>
+        <nav>
+            <a href="/home">Home</a>
+            <a href="/catalog/viewCart">View Cart</a>
+        </nav>
+    <div class="row">
+        <div class="col points">
+            <h3>My Points</h3>
+        </div>
+        <div class="col3">
+            <h2>Catalog</h2>
+            Max Price
+            <input type="number" min="0" id="maxPrice" onchange="updatePrice()"/>
+            Min Price
+            <input type="number" min="0" id="minPrice" onchange="updatePrice()"/>
+            Min Rating
+            <input type="number" min="0" max="5" id="minRating" onchange="updateRating()"/>
+            <select id="brand" onchange="updateBrand()">
+                
+            </select>
+            <span>
+                <div class="itemWrapper">
+                </div>
+            </span>
+        </div>
+    </div>
+    <script>
+        let maxValue=1000000000;
+        let minValue=0;
+        let minRating=0;
+        let brand=[];
+        const itemList={{values |safe}};
+
+        document.querySelector('#brand').innerHTML="<option value='All'>All</option>";
+        itemList.forEach((item)=>{
+            if(brand.indexOf(item.brand)==-1){
+                brand.push(item.brand)
+                let itemDom=document.createElement("option");
+                itemDom.innerHTML=item.brand;
+                itemDom.value=item.brand;
+                document.querySelector('#brand').appendChild(itemDom);
+            }
+        });
+
+        brand='All';
+        function draw(){
+            
+            const span=document.querySelector("span");
+            span.innerHTML='';
+            let i=4;
+            let itemsDom;
+            for(const item of itemList){
+                if(i==4){
+                    itemsDom=document.createElement("div");
+                    itemsDom.className='itemWrapper';
+                    itemsDom.innerHTML="";
+                    span.append(itemsDom);
+                    i=0;
+                }else{
+                    i++;
+                }
+                if(item.price>maxValue||item.price<minValue||item.rating<minRating)
+                    continue;
+                if(brand!='All' && item.brand!=brand)
+                    continue;
+                let itemDom=document.createElement("div");
+                itemDom.className="item";
+                
+                let img=document.createElement("img");
+                img.src=item.pic;
+                img.width="150";
+                img.height="100";
+                itemDom.appendChild(img);
+
+                let small=document.createElement("small");
+                small.innerHTML="<br/><b><a href='/catalog/"+item.id+"/addToCart'>Buy</a>"+item.title+"</b> $"+item.price + " Rating"+item.rating;
+                itemDom.appendChild(small)
+                
+                itemsDom.appendChild(itemDom);    
+            }
+        }
+        draw();
+        function updatePrice(){
+            maxValue=parseInt(document.querySelector("#maxPrice").value);
+            minValue=parseInt(document.querySelector("#minPrice").value);
+            draw();
+        }
+        function updateRating(){
+            minRating=parseInt(document.querySelector("#minRating").value);
+            draw();
+        }
+        function updateBrand(){
+            brand=document.querySelector('#brand').value;
+            draw();
+        }
+    </script>
+  </body>
+</html>

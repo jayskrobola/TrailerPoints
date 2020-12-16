@@ -1,0 +1,34 @@
+<!DOCTYPE html> 
+    <head> 
+    <title>Driver Reward System</title> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+    <style>
+	body{ margin:0;
+        }
+	header{ padding:50px; background: #6DB3E7; font-family: Roboto; 
+            font-size: 36px; color: #FFFFFF;
+        }
+	.centerForm{ font-family: Roboto; width:500px; padding:20px; 
+            margin:10px auto; background:#edf7f9;
+        }
+	.centerForm input{ padding:10px; width:100%; box-sizing: 
+            border-box;
+        }
+	.centerForm label{ display: block; margin:10px 0 10px 0;
+        }
+    </style> 
+    </head> 
+    <body> 
+    <header>Driver Reward System</header> 
+    <div class="centerForm">
+       <h2>Payment Entry</h2> 
+       <form class="form-inline" method="POST" action="" enctype='multipart/form-data'>
+       {% csrf_token %} 
+       <label>Select payment method</label> 
+       {{form.paymentmethod}}
+       <input type="number" min="0" value="0" name="card_number"/><br/>
+       <input type="submit" value="Update Card"/>
+       </form>
+    </div> 
+   </body>
+</html>

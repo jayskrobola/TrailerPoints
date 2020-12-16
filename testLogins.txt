@@ -1,0 +1,11 @@
+Admin:
+ec2-user
+thisisatest
+
+Sponsor:
+sponsortest
+thisisatest
+
+User:
+logansusertest
+thisisatest

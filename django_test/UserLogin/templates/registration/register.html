@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+  <head>
+    <title>Driver Reward System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <style>
+	body{
+            margin:0;
+        }
+	header{
+            padding:50px;
+            background: #6DB3E7;
+            font-family: Roboto;
+            font-size: 36px;
+            color: #FFFFFF;
+        }
+	.centerForm{
+            font-family: Roboto;
+            width:500px;
+            padding:20px;
+            margin:10px auto;
+            background:#edf7f9;
+
+        }
+
+	.centerForm input{
+            padding:10px;
+            width:100%;
+            box-sizing: border-box;
+        }
+	.centerForm label{
+            display: block;
+            margin:10px 0 10px 0;
+        }
+    </style>
+  </head>
+  <body>
+    <header>Driver Reward System</header>
+    <div class="centerForm">
+        <h2>Register</h2>
+        <form method = "post">
+        {% csrf_token %}
+        <label>Username</label>
+        <input type="text" name="username"/><br/>
+        <label>Password</label>
+        <input type="password" name="password1"/><br/><br/>
+	<label>Verify Password</label>
+	<input type="password" name="password2"/><br/><br/>
+	{% for message in messages %}
+                    <div class="alert alert-success">
+                        <a class="close" href="#" data-dismiss="alert"></a>
+                        {{ message }}
+                    </div>
+        {% endfor %}
+	<label>Select a user type</label>
+	<select name = "userType">
+	    <option value = "Driver">Driver</option>
+	    <option value = "Sponsor">Sponsor</option>
+	    <option value = "Admin">Admin</option>
+	</select>
+        <input type="submit" value="Login"/>
+    </div>
+  </body>
+</html>
+
